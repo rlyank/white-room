@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COTE · top.gg vote avatars (bg music)</title>
+    <!-- Fonts for COTE aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* style.css — COTHEME with real bot avatars + image protection */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0b1017;
+            background-image: radial-gradient(circle at 20% 30%, rgba(184, 155, 94, 0.05) 0%, transparent 30%),
+                              linear-gradient(145deg, #0a0f15 0%, #121a24 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            padding: 20px;
+            color: #e9ecf2;
+        }
+
+        .cote-container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(20, 28, 40, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(184, 155, 94, 0.3);
+            border-radius: 36px;
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(184, 155, 94, 0.2) inset;
+            padding: 40px 30px;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 2.6rem;
+            letter-spacing: 1px;
+            color: #e9ecf2;
+            text-shadow: 0 2px 5px rgba(184, 155, 94, 0.3);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h1 span {
+            font-size: 1.8rem;
+            background: rgba(184, 155, 94, 0.15);
+            padding: 5px 18px;
+            border-radius: 60px;
+            border: 1px solid rgba(184, 155, 94, 0.4);
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+            color: #b89b5e;
+        }
+
+        .subhead {
+            font-size: 1.1rem;
+            color: #a9b4c9;
+            border-left: 3px solid #b89b5e;
+            padding-left: 18px;
+            margin: 20px 0 40px 0;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+
+        .bot-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        /* card style — COTE minimal elegance */
+        .vote-card {
+            background: rgba(12, 18, 28, 0.85);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(184, 155, 94, 0.25);
+            border-radius: 28px;
+            padding: 24px 20px 20px 20px;
+            transition: all 0.2s ease;
+            box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .vote-card:hover {
+            border-color: #b89b5e;
+            box-shadow: 0 18px 30px -12px #b89b5e30, 0 0 0 1px #b89b5e40 inset;
+            transform: translateY(-3px);
+            background: rgba(16, 24, 36, 0.9);
+        }
+
+        /* avatar styling — for real bot images with protection */
+        .avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            border: 2px solid #b89b5e;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.7);
+            overflow: hidden;
+            background: #1a2433;
+            pointer-events: none; /* prevents right-click on image area */
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            -webkit-user-drag: none;
+            user-drag: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .bot-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: #e9ecf2;
+            line-height: 1.2;
+            margin-bottom: 6px;
+        }
+
+        .bot-desc {
+            font-size: 0.85rem;
+            color: #9aa6b9;
+            margin-bottom: 22px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 300;
+            border-bottom: 1px dashed rgba(184, 155, 94, 0.3);
+            padding-bottom: 12px;
+            width: 100%;
+        }
+
+        /* vote button — COTE outline style */
+        .vote-btn {
+            display: inline-block;
+            background: transparent;
+            border: 1.5px solid #b89b5e;
+            border-radius: 40px;
+            padding: 12px 30px;
+            color: #b89b5e;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 1.2px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: 0.2s ease;
+            width: fit-content;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+            backdrop-filter: blur(5px);
+        }
+
+        .vote-btn:hover {
+            background: #b89b5e;
+            color: #0b1017;
+            border-color: #b89b5e;
+            box-shadow: 0 8px 18px #b89b5e30, 0 0 15px #b89b5e40;
+            font-weight: 700;
+        }
+
+        .vote-btn:active {
+            transform: scale(0.96);
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 45px;
+            font-size: 0.9rem;
+            color: #7d8ba0;
+            border-top: 1px solid rgba(184, 155, 94, 0.2);
+            padding-top: 25px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-note i {
+            color: #b89b5e;
+            font-style: normal;
+        }
+
+        /* responsiveness */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.9rem; flex-wrap: wrap; }
+            .bot-grid { gap: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background music (hidden, autoplay, loop) -->
+    <audio id="bgMusic" src="song.mp3" autoplay loop preload="auto" volume="0.5" style="display: none;"></audio>
+
+    <div class="cote-container">
+        <h1>
+            CLASSROOM OF THE ELITE
+            <span>vote</span>
+        </h1>
+        <div class="subhead">
+            top.gg · 選ばれた者だけが投票できる
+        </div>
+
+        <div class="bot-grid">
+            <!-- owo bot -->
+            <div class="vote-card">
+                <div class="avatar">
+                    <img src="https://cdn.discordapp.com/avatars/408785106942164992/1a449430e3a9a830efebb8c57917f943.png?size=1024" 
+                         alt="owo bot"
+                         draggable="false"
+                         oncontextmenu="return false;"
+                         onmousedown="return false;">
+                </div>
+                <div class="bot-name">OWO</div>
+                <div class="bot-desc">#1 · にゃんぱす</div>
+                <a href="https://top.gg/bot/408785106942164992/vote" target="_blank" rel="noopener noreferrer" class="vote-btn">VOTE</a>
+            </div>
+
+            <!-- reaction bot -->
+            <div class="vote-card">
+                <div class="avatar">
+                    <img src="https://cdn.discordapp.com/avatars/519287796549156864/ae0d9328bace0b0d64c19784477b7e3c.png?size=1024" 
+                         alt="reaction bot"
+                         draggable="false"
+                         oncontextmenu="return false;"
+                         onmousedown="return false;">
+                </div>
+                <div class="bot-name">REACTION</div>
+                <div class="bot-desc">#2 · リアクション</div>
+                <a href="https://top.gg/bot/519287796549156864/vote" target="_blank" rel="noopener noreferrer" class="vote-btn">VOTE</a>
+            </div>
+
+            <!-- epic rpg -->
+            <div class="vote-card">
+                <div class="avatar">
+                    <img src="https://cdn.discordapp.com/avatars/555955826880413696/017a258a58a02819cab0320fa988c8af.png?size=1024" 
+                         alt="epic rpg"
+                         draggable="false"
+                         oncontextmenu="return false;"
+                         onmousedown="return false;">
+                </div>
+                <div class="bot-name">EPIC RPG</div>
+                <div class="bot-desc">#3 · エピック</div>
+                <a href="https://top.gg/bot/555955826880413696/vote" target="_blank" rel="noopener noreferrer" class="vote-btn">VOTE</a>
+            </div>
+
+            <!-- anigame -->
+            <div class="vote-card">
+                <div class="avatar">
+                    <img src="https://cdn.discordapp.com/avatars/571027211407196161/6f9414730ce442093166f89851407ace.png?size=1024" 
+                         alt="anigame"
+                         draggable="false"
+                         oncontextmenu="return false;"
+                         onmousedown="return false;">
+                </div>
+                <div class="bot-name">ANIGAME</div>
+                <div class="bot-desc">#4 · アニメ</div>
+                <a href="https://top.gg/bot/571027211407196161/vote" target="_blank" rel="noopener noreferrer" class="vote-btn">VOTE</a>
+            </div>
+
+            <!-- neonutil -->
+            <div class="vote-card">
+                <div class="avatar">
+                    <img src="https://cdn.discordapp.com/avatars/851436490415931422/2af9b9fd509337b6fa36aa411c2f08cc.png?size=1024" 
+                         alt="neonutil"
+                         draggable="false"
+                         oncontextmenu="return false;"
+                         onmousedown="return false;">
+                </div>
+                <div class="bot-name">NEONUTIL</div>
+                <div class="bot-desc">#5 · ネオン</div>
+                <a href="https://top.gg/bot/851436490415931422/vote" target="_blank" rel="noopener noreferrer" class="vote-btn">VOTE</a>
+            </div>
+
+            <!-- tatsu -->
+            <div class="vote-card">
+                <div class="avatar">
+                    <img src="https://cdn.discordapp.com/avatars/172002275412279296/43fc1879641f6239d6e4038eaa7dabbc.png?size=1024" 
+                         alt="tatsu"
+                         draggable="false"
+                         oncontextmenu="return false;"
+                         onmousedown="return false;">
+                </div>
+                <div class="bot-name">TATSU</div>
+                <div class="bot-desc">#6 · タツ</div>
+                <a href="https://top.gg/bot/172002275412279296/vote" target="_blank" rel="noopener noreferrer" class="vote-btn">VOTE</a>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <i>⚡</i> 各ボタンをクリックして top.gg で投票 <i>⚡</i>
+        </div>
+    </div>
+
+    <!-- Fallback for autoplay: if browser blocks autoplay, try to play on first interaction -->
+    <script>
+        (function() {
+            const audio = document.getElementById('bgMusic');
+            if (audio) {
+                // Set volume to 50%
+                audio.volume = 0.5;
+
+                // Attempt autoplay
+                audio.play().catch(e => {
+                    console.log('Autoplay blocked, will play after user interaction');
+                    // Once user clicks anywhere, play audio
+                    const playOnce = () => {
+                        audio.play().then(() => {
+                            document.removeEventListener('click', playOnce);
+                            document.removeEventListener('touchstart', playOnce);
+                        }).catch(err => console.warn('Still blocked:', err));
+                    };
+                    document.addEventListener('click', playOnce);
+                    document.addEventListener('touchstart', playOnce);
+                });
+            }
+
+            // Additional image protection: disable right-click on images globally
+            document.querySelectorAll('.avatar img').forEach(img => {
+                img.addEventListener('contextmenu', (e) => e.preventDefault());
+                img.addEventListener('dragstart', (e) => e.preventDefault());
+            });
+        })();
+    </script>
+</body>
+</html>
